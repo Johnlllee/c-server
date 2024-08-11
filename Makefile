@@ -6,6 +6,7 @@ SSL_LIBS_DIR = /opt/homebrew/opt/openssl@1.1/lib
 SSL_INCLUDE_DIRS = /opt/homebrew/opt/openssl@1.1/include
 
 # Compiler flags
+CC = gcc
 LIBS = -lpthread -L$(SSL_LIBS_DIR)
 INCLUDE_DIRS = -I$(SSL_INCLUDE_DIRS)
 
@@ -17,14 +18,14 @@ all:
 mkdir:
 	mkdir -p $(OUT_DIR)
 server:
-	$(eval OUTPUT := $(OUT_DIR)/server)
-	gcc -o $(OUTPUT) \
+	$(eval OUTPUT := -o $(OUT_DIR)/server)
+	$(CC) $(OUTPUT) \
 	${INCLUDE_DIRS} \
 	${LIBS} \
 	$(SRC_DIR)/server.c
 client:
-	$(eval OUTPUT := $(OUT_DIR)/client)
-	gcc -o $(OUTPUT) \
+	$(eval OUTPUT := -o $(OUT_DIR)/client)
+	$(CC) $(OUTPUT) \
 	${INCLUDE_DIRS} \
 	${LIBS} \
 	$(SRC_DIR)/client.c
