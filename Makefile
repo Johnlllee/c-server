@@ -7,7 +7,7 @@ SSL_INCLUDE_DIRS = /opt/homebrew/opt/openssl@1.1/include
 
 # Compiler flags
 CC = gcc
-LIBS = -lpthread -L$(SSL_LIBS_DIR)
+LIBS = -lpthread -L$(SSL_LIBS_DIR) -lssl -lcrypto
 INCLUDE_DIRS = -I$(SSL_INCLUDE_DIRS)
 
 all:
