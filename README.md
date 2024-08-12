@@ -3,7 +3,7 @@
 A repo contains several examples of server-client communication using C language.
 ## Project
 ### openssl
-#### usage
+#### BUILD
 ```shell
 # 0 - build
 make openssl
