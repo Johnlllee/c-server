@@ -7,27 +7,28 @@ SSL_INCLUDE_DIRS = /opt/homebrew/opt/openssl@1.1/include
 
 # Compiler flags
 CC = gcc
-LIBS = -lpthread -L$(SSL_LIBS_DIR) -lssl -lcrypto
-INCLUDE_DIRS = -I$(SSL_INCLUDE_DIRS)
-
-all:
-	make mkdir
-	make server
-	make client
+OPENSSL_LIBS = -L$(SSL_LIBS_DIR) -lssl -lcrypto
+OPENSSL_INCLUDE_DIRS = -I$(SSL_INCLUDE_DIRS)
 
 mkdir:
 	mkdir -p $(OUT_DIR)
-server:
-	$(eval OUTPUT := -o $(OUT_DIR)/server)
+openssl:
+	make mkdir
+	make openssl-server
+	make openssl-client
+openssl-server:
+	$(eval OUTPUT := -o $(OUT_DIR)/server-openssl)
+	$(eval PROJECT_DIR := $(SRC_DIR)/openssl)
 	$(CC) $(OUTPUT) \
-	${INCLUDE_DIRS} \
-	${LIBS} \
-	$(SRC_DIR)/server.c
-client:
-	$(eval OUTPUT := -o $(OUT_DIR)/client)
+	${OPENSSL_INCLUDE_DIRS} \
+	${OPENSSL_LIBS} \
+	$(PROJECT_DIR)/server.c
+openssl-client:
+	$(eval OUTPUT := -o $(OUT_DIR)/client-openssl)
+	$(eval PROJECT_DIR := $(SRC_DIR)/openssl)
 	$(CC) $(OUTPUT) \
-	${INCLUDE_DIRS} \
-	${LIBS} \
-	$(SRC_DIR)/client.c
+	${OPENSSL_INCLUDE_DIRS} \
+	${OPENSSL_LIBS} \
+	$(PROJECT_DIR)/client.c
 clean:
 	rm -rf $(OUT_DIR)
